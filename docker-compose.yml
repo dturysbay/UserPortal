@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  backend:
+    image: 'dturysbay/user-portal-iso:latest'
+    container_name: 'user-portal-iso'
+    depends_on:
+      - postgres
+    environment:
+      - SERVER_PORT=9999
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - 8080:8080
+
+  postgres:
+    image: postgres
+    container_name: 'pg_container'
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5432:5432
