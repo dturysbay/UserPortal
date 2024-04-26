@@ -4,6 +4,8 @@ import com.turysbay.UserPortalRestApp.dto.LoginRequest;
 import com.turysbay.UserPortalRestApp.entity.User;
 import com.turysbay.UserPortalRestApp.exceptions.UserAlreadyExistsException;
 import com.turysbay.UserPortalRestApp.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +25,8 @@ import java.net.URI;
 public class UserContoller {
     private final UserService userService;
 
+    @Tag(name = "USERS")
+    @Operation(summary = "Registration of new user")
     @PostMapping("/registration")
     public ResponseEntity<String> registrations(@Valid @RequestBody @NotNull User user, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
@@ -40,6 +44,8 @@ public class UserContoller {
 
     }
 
+    @Tag(name = "USERS")
+    @Operation(summary = "Authenticate user")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody @NotNull LoginRequest loginRequest) {
         String login = loginRequest.getLogin();
